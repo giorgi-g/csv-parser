@@ -95,14 +95,16 @@ export default class CSVParser {
             const rows: Map<any, any> = new Map();
 
             // @ts-ignore
-            data.forEach((row: any[]) => {
-                const key = this.generateMapKey(row);
+            data.forEach((row: any[], rowIndex: number) => {
+                if (rowIndex !== 0) {
+                    const key = this.generateMapKey(row);
 
-                if (this.classPath == null) {
-                    rows.set(key, { ...row });
-                } else {
-                    const currentRow = this.rowToObject(row, columns);
-                    rows.set(key, currentRow);
+                    if (this.classPath == null) {
+                        rows.set(key, {...row});
+                    } else {
+                        const currentRow = this.rowToObject(row, columns);
+                        rows.set(key, currentRow);
+                    }
                 }
             });
 
