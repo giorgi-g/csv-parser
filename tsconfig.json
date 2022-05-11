@@ -1,0 +1,8 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "useUnknownInCatchVariables": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
