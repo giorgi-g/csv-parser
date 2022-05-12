@@ -1,8 +1,24 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true
   },
-  "include": ["src"],
+  "include": [
+    "index.ts",
+    "src/entities/Profile.ts",
+    "src/types/CSVParserOptions.interface.ts",
+    "src/lib/CSVParser.ts",
+    "src/lib/File.ts",
+    "src/lib/Sequelizer.ts",
+    "config.ts",
+    "package.json",
+    "package-lock.json",
+    "README.md"
+  ],
   "exclude": ["node_modules"]
 }

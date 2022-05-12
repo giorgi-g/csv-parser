@@ -39,7 +39,6 @@ ___
 
 
 ### Example:
-##### You can find a [demo](main.ts) for a profile CSV parser here.
 ```typescript
 const fileName = "sample_profiles"; // file name inside /files/FILE_NAME.csv
 
@@ -61,4 +60,27 @@ const fileName = "sample_profiles"; // file name inside /files/FILE_NAME.csv
        console.log('>>> profile', profile);
    })
  });
+
+
+
+
+
+const connection = dbConnection("profile", 100, 0).then((response) => {
+   console.log('>>> response from db:', response);
+}).catch((error) => {
+   console.log('>>> error: ', error);
+});
+
+
+dbConnection = async (schema?: string, limit: number = 0, offset: number = 0) => {
+   const DB = Sequelizer(schema);
+   return DB.query(`SELECT uuid, brand_id FROM 
+                profile.profiles
+            WHERE brand_id IS NOT NULL
+            ORDER BY uuid DESC LIMIT ${limit} OFFSET ${offset}`,
+           {
+              type: QueryTypes.SELECT,
+              logging: false,
+           });
+}
 ```
