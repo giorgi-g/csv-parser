@@ -6,12 +6,6 @@
     "type": "git",
     "url": "git+https://github.com/giorgi-g/csv-parser.git"
   },
-  "scripts": {
-    "build" : "tsc",
-    "prepare": "rm -rf ./dist && npm run build && cp package-dist.json ./dist/package.json && cp .env.example ./dist/.env.example",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
-  },
   "keywords": [
     "csv",
     "parser",

@@ -39,7 +39,7 @@ ___
 
 
 ### Example:
-##### You can find a [demo](main.ts) for a profile CSV parser here.
+##### You can find a [demo](index.ts) for a profile CSV parser here.
 ```typescript
 const fileName = "sample_profiles"; // file name inside /files/FILE_NAME.csv
 
@@ -50,7 +50,7 @@ const fileName = "sample_profiles"; // file name inside /files/FILE_NAME.csv
  };
 
  // Initialize the parser with properties
- const csvParser = new CSVParser(
+ const csvParser = new Index(
      fileName,
      options,
  );

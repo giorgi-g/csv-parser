@@ -1,11 +1,9 @@
-import {Gender} from "../enums/Gender.enum";
-
-export default class Profile {
+export class Profile {
   private readonly id: number = 0;
   private readonly firstName: string = '';
   private readonly lastName: string = '';
   private readonly email: string = '';
-  private readonly gender: Gender = Gender.OTHER;
+  private readonly gender: number = 2;
   private readonly phoneNumber: string = '';
   private readonly birthday: Date = new Date();
 
@@ -34,11 +32,11 @@ export default class Profile {
   mapGender = (status: string) => {
     switch (status) {
       case "MALE":
-        return Gender.MALE
+        return 0
       case "FEMALE":
-        return Gender.FEMALE
+        return 1
       default:
-        return Gender.OTHER
+        return 2
     }
   }
 }

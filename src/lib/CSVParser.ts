@@ -1,10 +1,15 @@
-import CSVParserOptions from "../interfaces/CSVParserOptions.interface";
-import getStream from "get-stream";
-import fs from "fs";
-import { DB_ENV, FILE_EXTENSION, FILES_DIR } from "../../config";
-import { parse } from "csv-parse";
+import CSVParserOptions from "../types/CSVParserOptions.interface";
 
-export default class CSVParser {
+const getStream = require("get-stream");
+const fs = require("fs");
+const {
+    DB_ENV,
+    FILE_EXTENSION,
+    FILES_DIR
+} = require("../../config");
+const { parse } = require("csv-parse");
+
+export class CSVParser {
     private readonly fileName: string = '';
     private readonly mapKeyIndexes: number[] = [];
     private readonly mapKeySeparator: string = '-';
