@@ -1,6 +1,6 @@
 {
   "name": "@giorgi-g/csv-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CSV parser for migrations with Sequelizer",
   "repository": {
     "type": "git",
@@ -8,8 +8,7 @@
   },
   "scripts": {
     "build" : "tsc",
-    "prepare": "rm -rf ./dist && npm run build && cp package-dist.json ./dist/package.json && cp .env.example ./dist/.env.example",
-    "version": "npm run format && git add -A src",
+    "prepare": "./prepare.sh",
     "publish": "cd ./dist && npm publish --access public",
     "postversion": "git push && git push --tags"
   },
