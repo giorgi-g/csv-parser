@@ -1,6 +1,6 @@
 {
   "name": "@giorgi-g/csv-parser",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CSV parser for migrations with Sequelizer",
   "repository": {
     "type": "git",

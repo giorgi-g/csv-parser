@@ -15,7 +15,7 @@ export class File {
         this.encoding = encoding;
     }
 
-    Read() {
+    read = async () => {
         try {
             return JSON.parse(
                 fs.readFileSync(
@@ -28,17 +28,13 @@ export class File {
         }
     }
 
-    Write(data: any) {
-        const arr = this.Read();
-        arr.push(data);
+    clear = async () => await this.write([]);
 
-        fs.writeFile(
-            `${this.filePath}.${this.extension}`,
-            JSON.stringify(arr),
-            (err: any) => {
-                if (err) return console.log(err);
-
-                console.log(`Writing files inside ${this.filePath}.${this.extension} finished!`);
-            });
-    }
+    write = async (data: any[]) => fs.writeFile(
+        `${this.filePath}.${this.extension}`,
+        JSON.stringify(data),
+        (err: any) => {
+            if (err) return console.log(err);
+            console.log(`Writing files inside ${this.filePath}.${this.extension} finished!`);
+        });
 }

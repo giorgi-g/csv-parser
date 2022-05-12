@@ -1,4 +1,4 @@
-## CSV PARSER
+## CSV PARSER ON STEROIDS
 __CSV files parser on TypeScript with Sequelizer. For easier migration.__
 ___
 ### Install npm modules

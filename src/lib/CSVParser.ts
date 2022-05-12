@@ -1,11 +1,7 @@
 import { CSVParserOptions } from "../types/CSVParserOptions.interface";
 const getStream = require("get-stream");
 const fs = require("fs");
-const {
-    DB_ENV,
-    FILE_EXTENSION,
-    FILES_DIR
-} = require("../../config");
+const { DB_ENV, FILE_EXTENSION, FILES_DIR } = require("../../config");
 const { parse } = require("csv-parse");
 
 export class CSVParser {
@@ -57,7 +53,7 @@ export class CSVParser {
         return currentRow;
     };
 
-    generateMapKey = (row: any[]) => {
+    generateMapKey = (row: any[]): string => {
         let mapKey = '';
 
         this.mapKeyIndexes.forEach((key: number, index: number) => {
@@ -85,7 +81,6 @@ export class CSVParser {
         if (data.length && !this.mapKeyIndexes.length) {
             const rows: Map<number, any> = new Map();
 
-            // @ts-ignore
             data.forEach((row: any[], rowIndex: number) => {
                 if (rowIndex !== 0) {
                     const currentRow = this.rowToObject(row, columns);
@@ -98,10 +93,9 @@ export class CSVParser {
         } if (data.length && this.mapKeyIndexes.length) {
             const rows: Map<any, any> = new Map();
 
-            // @ts-ignore
             data.forEach((row: any[], rowIndex: number) => {
                 if (rowIndex !== 0) {
-                    const key = this.generateMapKey(row);
+                    const key: string = this.generateMapKey(row);
 
                     if (this.classPath == null) {
                         rows.set(key, {...row});
