@@ -1,4 +1,4 @@
-export default interface CSVParserOptions {
+export interface CSVParserOptions {
     mapKeyIndexes?: number[];
     mapKeySeparator?: string;
     classPath?: string;

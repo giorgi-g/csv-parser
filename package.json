@@ -1,12 +1,13 @@
 {
   "name": "@giorgi-g/csv-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "CSV parser for migrations with Sequelizer",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giorgi-g/csv-parser.git"
   },
   "scripts": {
+    "start": "nodemon main.ts",
     "build" : "tsc",
     "prepare": "./prepare.sh",
     "publish": "cd ./dist && npm publish --access public",

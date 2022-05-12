@@ -1,4 +1,4 @@
-import CSVParserOptions from "../types/CSVParserOptions.interface";
+import { CSVParserOptions } from "../types/CSVParserOptions.interface";
 const getStream = require("get-stream");
 const fs = require("fs");
 const {
