@@ -1,11 +1,7 @@
 import { CSVParserOptions } from "../types/CSVParserOptions.interface";
 const getStream = require("get-stream");
 const fs = require("fs");
-const {
-    DB_ENV,
-    FILE_EXTENSION,
-    FILES_DIR
-} = require("../../config");
+const { DB_ENV, FILE_EXTENSION, FILES_DIR } = require("../../config");
 const { parse } = require("csv-parse");
 
 export class CSVParser {
@@ -14,6 +10,7 @@ export class CSVParser {
     private readonly mapKeySeparator: string = '-';
     private readonly classPath?: string | null;
     private readonly classObjectGetterName?: string | null;
+    private readonly mergeMapKeyValues?: boolean = false;
     private readonly delimiter: string = ',';
     private readonly rootDir: string = FILES_DIR;
     private readonly rootEnv: string = DB_ENV;
@@ -32,6 +29,25 @@ export class CSVParser {
         if (options.rootDir != null) this.rootDir = options.rootDir;
         if (options.rootEnv != null) this.rootEnv = options.rootEnv;
         if (options.fileExtension != null) this.fileExtension = options.fileExtension;
+        if (options.mergeMapKeyValues != null) this.mergeMapKeyValues = options.mergeMapKeyValues;
+
+        if (this.classPath != null && !fs.existsSync(this.classPath)) {
+            this.classPath = `../../../../../${this.classPath}`;
+        }
+    }
+
+    mergeMapKeyData = (currentRow: any, prevData: any[]) => {
+        const array = [];
+        array.push(currentRow);
+        if (Array.isArray(prevData)) {
+            prevData.forEach(item => {
+                array.push(item);
+            });
+        } else {
+            array.push(prevData);
+        }
+
+        return array;
     }
 
     rowToObject = (row: any[] = [], columns: any[] = []) => {
@@ -57,7 +73,7 @@ export class CSVParser {
         return currentRow;
     };
 
-    generateMapKey = (row: any[]) => {
+    generateMapKey = (row: any[]): string => {
         let mapKey = '';
 
         this.mapKeyIndexes.forEach((key: number, index: number) => {
@@ -85,7 +101,6 @@ export class CSVParser {
         if (data.length && !this.mapKeyIndexes.length) {
             const rows: Map<number, any> = new Map();
 
-            // @ts-ignore
             data.forEach((row: any[], rowIndex: number) => {
                 if (rowIndex !== 0) {
                     const currentRow = this.rowToObject(row, columns);
@@ -98,16 +113,39 @@ export class CSVParser {
         } if (data.length && this.mapKeyIndexes.length) {
             const rows: Map<any, any> = new Map();
 
-            // @ts-ignore
             data.forEach((row: any[], rowIndex: number) => {
                 if (rowIndex !== 0) {
-                    const key = this.generateMapKey(row);
+                    const key: string = this.generateMapKey(row);
+
+                    const currentRow = {...row};
 
                     if (this.classPath == null) {
-                        rows.set(key, {...row});
+                        if (this.mergeMapKeyValues) {
+                            const prevData = rows.get(key);
+                            if (prevData != null) {
+                                const arr = this.mergeMapKeyData(currentRow, prevData);
+
+                                rows.set(key, arr);
+                            } else {
+                                rows.set(key, currentRow);
+                            }
+                        } else {
+                            rows.set(key, currentRow);
+                        }
                     } else {
                         const currentRow = this.rowToObject(row, columns);
-                        rows.set(key, currentRow);
+                        if (this.mergeMapKeyValues) {
+                            const prevData = rows.get(key);
+                            if (prevData != null) {
+                                const arr = this.mergeMapKeyData(currentRow, prevData);
+
+                                rows.set(key, arr);
+                            } else {
+                                rows.set(key, currentRow);
+                            }
+                        } else {
+                            rows.set(key, currentRow);
+                        }
                     }
                 }
             });

@@ -7,4 +7,5 @@ export interface CSVParserOptions {
     rootDir?: string;
     rootEnv?: string;
     fileExtension?: string;
+    mergeMapKeyValues?: boolean;
 }

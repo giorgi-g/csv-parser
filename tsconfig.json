@@ -15,6 +15,7 @@
     "src/lib/CSVParser.ts",
     "src/lib/File.ts",
     "src/lib/Sequelizer.ts",
+    "main.ts",
     "config.ts",
     "package.json",
     "package-lock.json",
