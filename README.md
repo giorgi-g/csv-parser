@@ -21,6 +21,7 @@ interface CSVParserOptions {
     rootDir?: string;
     rootEnv?: string;
     fileExtension?: string;
+   mergeMapKeyValues?: boolean;
 }
 ```
 ___
@@ -34,7 +35,9 @@ ___
     * After parsing the data from CSV you can cast it to a certain **Class** which by default can be created inside [entities'](src/entities) folder. e.g: `{ classPath: '../entities/Profile' }`
     * If you want value of the map to be some certain property or getter inside the Class you can provide a value for **classObjectGetterName** e.g: `{ classObjectGetterName: 'profile' }` which is the [profile](src/entities/Profile.ts) property inside the class
 3. ***delimiter*** 
-   *  As a delimiter your CSV file can contain **[`comma: ,`]** symbol if that is not the default for your CSV you can provide a different value defined inside.
+   * As a delimiter your CSV file can contain **[`comma: ,`]** symbol if that is not the default for your CSV you can provide a different value defined inside.
+4. ***mergeMapKeyValues***
+   * While setting a map to the key if you want to receive the same key values in an array make this value true
 ___
 
 

@@ -4,7 +4,9 @@ import {Profile} from "./src/entities/Profile";
 import {File} from "./src/lib/File";
 
 const cSVParserOptions: CSVParserOptions = {
-    classPath: "../entities/Profile"
+    classPath: "../entities/Profile",
+    mapKeyIndexes: [1],
+    mergeMapKeyValues: true,
 }
 
 const csvParser = new CSVParser(
@@ -17,17 +19,21 @@ csvParser.Read().then(async (response: any) => {
     const everyTenthProfile: any[] = [];
     const file = new File(filePath);
 
-    response.forEach((item: Profile, index: number) => {
-        if (item.profile.id % 100 === 0) {
-            everyTenthProfile.push(item.profile);
-        }
+    response.forEach((item: Profile | Profile[], index: number) => {
+        if (Array.isArray(item)) {
+            console.log('item', item);
+        } else {
+            if (item.profile.id % 100 === 0) {
+                everyTenthProfile.push(item.profile);
+            }
 
-        if (index === response.size - 1) {
-            file.write(everyTenthProfile).then(() => {
-                file.read().then(r => {
-                    console.log('r', r);
-                })
-            });
+            if (index === response.size - 1) {
+                file.write(everyTenthProfile).then(() => {
+                    file.read().then(r => {
+                        console.log('r', r);
+                    })
+                });
+            }
         }
     });
 }).catch((err: any) => {
